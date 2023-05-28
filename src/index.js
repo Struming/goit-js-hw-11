@@ -128,15 +128,7 @@ function createInfoItem(label, value) {
 
 function showTotalHitsMessage(totalHits) {
   Notiflix.Notify.info(`Total hits: ${totalHits}`, {
-    position: 'right-top',
-    timeout: 3000
-  });
-}
-
-function showNoImagesMessage() {
-  Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.', {
-    position: 'right-top',
-    timeout: 3000
+    
   });
 }
 
