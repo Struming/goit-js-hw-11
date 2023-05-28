@@ -1,0 +1,100 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: blue;
+  color: #fff;
+  padding: 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  width: 400px;
+  margin: 0 auto;
+}
+
+.search-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+input[type="text"] {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.search-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  position: absolute;
+  right: 10px;
+}
+
+.search-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.search-button:focus {
+  outline: none;
+}
+
+.logo {
+  width: 16px;
+  height: 16px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+}
+
+.photo-card {
+  background-color: #f4f4f4;
+  padding: 10px;
+}
+
+.photo-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.info {
+  margin-top: 10px;
+}
+
+.info-item {
+  margin-bottom: 5px;
+}
+
+.load-more {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: none;
+  margin-top: 20px;
+}
