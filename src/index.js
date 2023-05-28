@@ -147,6 +147,7 @@ function showEndOfResultsMessage() {
   });
 }
 
+
 function hideLoadMoreButton() {
   loadMoreButton.style.display = 'none';
 }
