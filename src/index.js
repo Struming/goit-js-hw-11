@@ -76,7 +76,6 @@ function searchImages() {
       showTotalHitsMessage(totalHits);
       lightbox.refresh();
       scrollToNextGroup();
-      displayPaginationButtons();
     })
     .catch(function(error) {
       console.error(error);
@@ -154,6 +153,7 @@ function handlePaginationClick(event) {
   searchImages();
 }
 
+
 function createPaginationButton(page) {
   const button = document.createElement('button');
   button.classList.add('pagination-button');
@@ -169,6 +169,7 @@ function showEndOfResultsMessage() {
     timeout: 3000
   });
 }
+
 loadMoreButton.addEventListener('click', loadMoreImages);
 
 function showNoImagesMessage() {
