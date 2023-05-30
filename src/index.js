@@ -11,7 +11,7 @@ const imagesPerPage = 40;
 let scrolledImages = 0;
 
 const loadMoreButton = document.querySelector('.load-more');
-loadMoreButton.style.display = 'none';
+hideLoadMoreButton();
 
 function showLoadMoreButton() {
   loadMoreButton.style.display = 'block';
