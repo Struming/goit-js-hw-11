@@ -13,6 +13,10 @@ let scrolledImages = 0;
 const loadMoreButton = document.querySelector('.load-more');
 loadMoreButton.style.display = 'none';
 
+function showLoadMoreButton() {
+  loadMoreButton.style.display = 'block';
+}
+
 function hideLoadMoreButton() {
   loadMoreButton.style.display = 'none';
 }
