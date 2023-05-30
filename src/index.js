@@ -169,11 +169,6 @@ function showEndOfResultsMessage() {
     timeout: 3000
   });
 }
-
-function hideLoadMoreButton() {
-  loadMoreButton.style.display = 'none';
-}
-
 loadMoreButton.addEventListener('click', loadMoreImages);
 
 function showNoImagesMessage() {
