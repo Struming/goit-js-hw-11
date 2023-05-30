@@ -7,22 +7,33 @@ const apiKey = '16653894-0ab9bd64880b7f862879404f4';
 let currentPage = 1;
 let searchQuery = '';
 let totalHits = 0;
+const imagesPerPage = 40;
+let scrolledImages = 0;
 
 const loadMoreButton = document.querySelector('.load-more');
+loadMoreButton.style.display = 'none';
+
+function showLoadMoreButton() {
+  loadMoreButton.style.display = 'block';
+}
+
+function hideLoadMoreButton() {
+  loadMoreButton.style.display = 'none';
+}
+
 const gallery = document.querySelector('.gallery');
 const lightbox = new SimpleLightbox('.gallery a');
-
-loadMoreButton.style.display = 'none'; // Hide the button initially
 
 document.getElementById('search-form').addEventListener('submit', function(event) {
   event.preventDefault();
 
   searchQuery = document.getElementsByName('searchQuery')[0].value;
   currentPage = 1;
+  scrolledImages = 0;
 
   searchImages();
   clearGallery();
-  loadMoreButton.style.display = 'none';
+  hideLoadMoreButton();
 });
 
 function searchImages() {
@@ -35,7 +46,7 @@ function searchImages() {
         orientation: 'horizontal',
         safesearch: true,
         page: currentPage,
-        per_page: 40
+        per_page: imagesPerPage
       }
     })
     .then(function(response) {
@@ -44,12 +55,18 @@ function searchImages() {
 
       if (images.length > 0) {
         displayImages(images);
-        loadMoreButton.style.display = 'block';
+        scrolledImages += images.length;
       } else {
         showNoImagesMessage();
       }
 
-      if (images.length < 40 || totalHits <= currentPage * 40) {
+      if (scrolledImages >= imagesPerPage && scrolledImages < totalHits) {
+        showLoadMoreButton();
+      } else {
+        hideLoadMoreButton();
+      }
+
+      if (scrolledImages >= totalHits) {
         hideLoadMoreButton();
         if (totalHits > 0) {
           showEndOfResultsMessage();
@@ -59,6 +76,7 @@ function searchImages() {
       showTotalHitsMessage(totalHits);
       lightbox.refresh();
       scrollToNextGroup();
+      displayPaginationButtons();
     })
     .catch(function(error) {
       console.error(error);
@@ -109,14 +127,14 @@ function createImageCard(image) {
   const commentsElement = createInfoItem('Comments', image.comments);
   const downloadsElement = createInfoItem('Downloads', image.downloads);
 
-  infoElement.appendChild(likesElement);
-  infoElement.appendChild(viewsElement);
-  infoElement.appendChild(commentsElement);
-  infoElement.appendChild(downloadsElement);
+infoElement.appendChild(likesElement);
+infoElement.appendChild(viewsElement);
+infoElement.appendChild(commentsElement);
+infoElement.appendChild(downloadsElement);
 
-  card.appendChild(infoElement);
+card.appendChild(infoElement);
 
-  return card;
+return card;
 }
 
 function createInfoItem(label, value) {
@@ -127,9 +145,22 @@ function createInfoItem(label, value) {
 }
 
 function showTotalHitsMessage(totalHits) {
-  Notiflix.Notify.info(`Total hits: ${totalHits}`, {
-    
-  });
+  Notiflix.Notify.info(`Total hits: ${totalHits}`, {});
+}
+
+function handlePaginationClick(event) {
+  event.preventDefault();
+  currentPage = parseInt(event.target.dataset.page);
+  searchImages();
+}
+
+function createPaginationButton(page) {
+  const button = document.createElement('button');
+  button.classList.add('pagination-button');
+  button.innerText = page;
+  button.dataset.page = page;
+  button.addEventListener('click', handlePaginationClick);
+  return button;
 }
 
 function showEndOfResultsMessage() {
@@ -138,7 +169,6 @@ function showEndOfResultsMessage() {
     timeout: 3000
   });
 }
-
 
 function hideLoadMoreButton() {
   loadMoreButton.style.display = 'none';
@@ -149,4 +179,3 @@ loadMoreButton.addEventListener('click', loadMoreImages);
 function showNoImagesMessage() {
   Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
 }
-
